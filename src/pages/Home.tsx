@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 
 import { Header } from "../components/Header";
 import { Task, TasksList } from "../components/TasksList";
@@ -9,26 +9,59 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-    const data = {
-      id: new Date().getTime(),
-      title: newTaskTitle,
-      done: false,
-    };
-    setTasks([...tasks, data]);
+    //TODO - add new task
+    const task = tasks.find((task) => {
+      return task.title === newTaskTitle;
+    });
+    if (!task) {
+      const newTask = {
+        id: new Date().getTime(),
+        title: newTaskTitle,
+        done: false,
+      };
+      setTasks([...tasks, newTask]);
+    } else {
+      Alert.alert(
+        "Task já cadastrada",
+        "Você não pode cadastrar uma task com o mesmo nome"
+      );
+    }
   }
 
   function handleToggleTaskDone(id: number) {
-    const task = tasks.filter((item) => item.id === id)[0];
-
-    task.done = !task.done;
-
-    const newTasks = [...new Set([task, ...tasks])];
-
-    setTasks(newTasks);
+    //TODO - toggle task done if exists
+    const newListWithTaskModified = tasks.map((task) =>
+      task.id === id ? { ...task, done: !task.done } : task
+    );
+    setTasks(newListWithTaskModified);
   }
 
   function handleRemoveTask(id: number) {
-    setTasks((oldState) => oldState.filter((tarefa) => tarefa.id !== id));
+    //TODO - remove task from state
+
+    Alert.alert(
+      "Remover item",
+      "Tem certeza que você deseja remover esse item?",
+      [
+        {
+          text: "Não",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Sim",
+          onPress: () =>
+            setTasks((oldState) => oldState.filter((task) => task.id !== id)),
+        },
+      ]
+    );
+  }
+
+  function handleEditTaks(taskId: number, taskNewTitle: string) {
+    const newListWithTaskModified = tasks.map((task) =>
+      task.id === taskId ? { ...task, title: taskNewTitle } : task
+    );
+    setTasks(newListWithTaskModified);
   }
 
   return (
@@ -41,6 +74,7 @@ export function Home() {
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask}
+        editTask={handleEditTaks}
       />
     </View>
   );
