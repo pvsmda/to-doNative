@@ -33,10 +33,10 @@ Antes de começar :checkered_flag:, você precisa ter [Git](https://git-scm.com)
 
 ```bash
 # Clonar este projeto
-$ git clone https://github.com/tiagopierre/to.do-with-react-native.git
+$ git clone https://github.com/pvsmda/to-doNative.git
 
 # Acessar a pasta
-$ cd to.do-with-react-native
+$ cd to-doNative
 
 # Instalar as dependências 
 $ yarn
@@ -57,4 +57,4 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](.github/LICENSE.
 
 
 Made with
-💜 by <a href="https://github.com/tiagopierre" target="_blank">Tiago Pierre</a>
+💜 by <a href="https://github.com/pvsmda" target="_blank">Paulo Victor</a>
